@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ infoMovie.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="backdrop">
+    <img src="https://image.tmdb.org/t/p/original{{infoMovie.backdrop_path}}" alt="">
+  </div>
+
+  <div class="poster-rating">
+    <div class="poster">
+      <img src="https://image.tmdb.org/t/p/original{{infoMovie.poster_path}}" alt="">
+    </div>
+
+    <div class="rating-votes">
+      <div class="rating">
+        <div class="info">
+          <ion-icon class="like" name="thumbs-up-sharp"></ion-icon>
+          <p class="name">Rating</p>
+          <p class="numeros">{{ ratingMovie }}</p>
+        </div>
+      </div>
+
+      <div class="votes">
+        <div class="info">
+          <ion-icon class="people" name="people"></ion-icon>
+          <p class="name">Votos</p>
+          <p class="numeros">{{ infoMovie.vote_count }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overview">
+    <p>{{ infoMovie.overview ? infoMovie.overview : 'NO HAY SIPNOSIS' }}</p>
+  </div>
+
+  <div class="genres">
+    <ion-chip *ngFor="let genre of infoMovie.genres" color="primary">
+      <ion-label>{{ genre.name }}</ion-label>
+    </ion-chip>
+  </div>
+
+
+  <div class="contenedor">
+    <h4>Actores</h4>
+    <ion-slides class="actor" [options]="moviesSlideOpt">
+      <ion-slide class="slide" *ngFor="let actor of cast">
+        <ion-card class="card">
+          <div *ngIf="actor.profile_path; else default">
+            <img src="https://image.tmdb.org/t/p/original{{actor.profile_path}}" alt="{{ actor.name }}">
+          </div>
+          <ion-card-header class="texto">
+            <ion-card-title class="titulo">{{ actor.name }}</ion-card-title>
+            <br>
+            <ion-card-subtitle class="sub">{{ actor.character }}</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div class="contenedorSimilares">
+    <h4>Películas Similares</h4>
+    <ion-slides class="slides" [options]="moviesSlideOptSimilar">
+      <ion-slide *ngFor="let movieSimilar of similarMovies">
+        <div class="contenedorImagen">
+          <img class="imagen" src="https://image.tmdb.org/t/p/original{{movieSimilar.poster_path}}"
+            alt="{{ movieSimilar.title }}">
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div class="favorito">
+    <ion-icon class="star" name="star-outline"></ion-icon>
+    <span class="texto">Favorito</span>
+  </div>
+
+  <ng-template #default>
+    <img src=".././../../../assets/images/defaultUser.png" alt="Imagen default">
+  </ng-template>
+
+  <ng-template>
+    <ion-icon class="star" name="star"></ion-icon>
+  </ng-template>
+
+</ion-content>

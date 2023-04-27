@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>MovieApp</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h4>Buscar Pelicula</h4>
+  <ion-list class="item-content">
+    <ion-item>
+      <button (click)="getMovies(movieName)">
+        <ion-icon name="search-outline"></ion-icon>
+      </button>
+      <ion-input type="text" class="input" [(ngModel)]="movieName" placeholder="Ingresa el titulo"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="movies.length === 0; else movieList" class="info">
+    <h5>Ideas</h5>
+    <ion-list class="item-content">
+      <ion-item>Spider-man</ion-item>
+      <ion-item>Avengers</ion-item>
+      <ion-item>El señor de los anillos</ion-item>
+      <ion-item>Toy story</ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>
+
+<ng-template #movieList>
+  <h5>Lista de películas</h5>
+  <ion-card (click)="openDetailMovie(movie.id)" *ngFor="let movie of movies" style="width: 95%;">
+    <img style="width: 100%; height: 200px;" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" alt="">
+    <ion-card-header>
+      <ion-card-subtitle>{{ movie.release_date }}</ion-card-subtitle>
+      <ion-card-title style="font-size: 18px" class="titulo">{{ movie.title }}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</ng-template>

@@ -1,0 +1,10 @@
+<ion-content>
+  <h4>Peliculas Populares</h4>
+  <ion-slides [options]="popularMoviesSlideOpt">
+    <ion-slide *ngFor="let popularMovie of popularMovies">
+        <div class="contenedor">
+            <img class="imagen" src="https://image.tmdb.org/t/p/original{{popularMovie.poster_path}}" alt="{{ popularMovie.title }}">
+        </div>
+    </ion-slide>
+</ion-slides>
+</ion-content>
